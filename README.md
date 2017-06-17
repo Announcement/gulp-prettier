@@ -1,48 +1,69 @@
-# Gulp Prettier [![Build Status](https://travis-ci.org/bhargavrpatel/gulp-prettier.svg?branch=master)](https://travis-ci.org/bhargavrpatel/gulp-prettier)
+# Gulp Prettier [![Build Status](https://travis-ci.org/Announcement/gulp-prettier.svg?branch=master)](https://travis-ci.org/Announcement/gulp-prettier)
 
-A [Gulp](http://gulpjs.com/) plugin which allows the users to use [Prettier](https://github.com/jlongster/prettier).
+A [Gulp](http://gulpjs.com/) plugin which allows the users to use [Prettier](https://github.com/prettier/prettier).
 
-> Prettier is an opinionated JavaScript formatter inspired by refmt with advanced support for language features from ES2017, JSX, and Flow. It removes all original styling and ensures that all outputted JavaScript conforms to a consistent style. (See this blog post)
+
+> Prettier is an opinionated code formatter inspired by
+[refmt](https://facebook.github.io/reason/tools.html) with advanced
+support for language features from:
+> * JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+> * [JSX](https://facebook.github.io/jsx/)
+> * [Flow](https://flow.org/)
+> * [TypeScript](https://www.typescriptlang.org/)
+> * CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
 
 
 ## Usage
 
 Simply pipe the input, and pass in arguments that you would to the regular format function.
 
-```js
-const gulp = require('gulp'),
-  prettier = require('gulp-prettier');
+### Example
 
-gulp.task('default', () => {
-	gulp.src('*.js')
-	.pipe(prettier({useFlowParser: true}))
-	.pipe(gulp.dest('./dist'))
-});
-```
+The following is a perfectly valid, complete `gulpfile.js` that could be used.
 
-Please consult the [Prettier](https://github.com/jlongster/prettier) README to know the possible optional arguments. At the time of this writing, these are the following optional arguments.
+~~~ javascript
+import gulp from 'gulp'
+import prettier from 'gulp-prettier'
 
-```js
+let source = '**/*.js'
+let destination = 'headers'
+let options = {}
+
+gulp.task('prettier', () =>
+  gulp.src(source)
+  .pipe(prettier(options))
+  .pipe(gulp.dest(destination))
+)
+~~~
+
+This would be invoked via `gulp prettier`, assuming that you are using the [gulp-cli](https://github.com/gulpjs/gulp-cli) tool.
+
+---
+
+Please consult the [Prettier](https://github.com/prettier/prettier) README to know the possible optional arguments.
+
+### Configuration
+
+At the time of this writing, these are the following **prettier** *default* arguments.
+In the above example, the `options` object would contain these arguments.
+
+~~~ javascript
 {
-  // Fit code within this line limit
   printWidth: 80,
-
-  // Number of spaces it should use per tab
   tabWidth: 2,
-
-  // Use the flow parser instead of babylon
-  useFlowParser: false,
-
-  // If true, will use single instead of double quotes
+  useTabs: false,
+  semi: true,
   singleQuote: false,
-
-  // Controls the printing of trailing commas wherever possible
-  trailingComma: false,
-
-  // Controls the printing of spaces inside array and objects
-  bracketSpacing: true
+  tralingComma: "none",
+  bracketSpacing: true,
+  jsxBracketSameLine: false,
+  cursorOffest: -1,
+  rangeStart: 0,
+  rangeEnd: Infinity,
+  parser: "babylon"
+  filepath: null
 }
-```
+~~~
 
 ## License
 
