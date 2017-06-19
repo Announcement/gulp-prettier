@@ -1,6 +1,7 @@
 import through from 'through2'
-// import gutil from 'gulp-util'
 import prettier from 'prettier'
+
+// import gutil from 'gulp-util'
 // import merge from 'merge'
 // import sourcemap from 'vinyl-sourcemaps-apply'
 
