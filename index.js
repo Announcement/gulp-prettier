@@ -1,26 +1,13 @@
-'use strict';
+const through = require('through2')
+const prettier = require('prettier')
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+module.exports = function (options) {
+  function transform (file, encoding, callback) {
+    let contents = file.contents
+    let result = prettier.format(contents, options)
 
-exports.default = function (options) {
-  function transform(file, encoding, callback) {
-    var contents = file.contents;
-    var result = _prettier2.default.format(contents, options);
-
-    callback(null, file);
+    callback(null, file)
   }
 
-  return _through2.default.obj(transform);
-};
-
-var _through = require('through2');
-
-var _through2 = _interopRequireDefault(_through);
-
-var _prettier = require('prettier');
-
-var _prettier2 = _interopRequireDefault(_prettier);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  return through.obj(transform)
+}
