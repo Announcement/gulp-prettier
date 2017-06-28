@@ -21,9 +21,13 @@ module.exports = function (parameters) {
     return object
 
     function forEach (key) {
-      if (it.hasOwnProperty(key)) {
+      if (exists(it) && it.hasOwnProperty(key)) {
         object[key] = it[key]
       }
+    }
+
+    function exists (it) {
+      return it !== undefined && it !== null
     }
   }
 }

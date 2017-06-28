@@ -1,6 +1,6 @@
-const through = require('through2')
-const prettier = require('prettier')
-const select = require('./select')
+var through = require('through2')
+var prettier = require('prettier')
+// var select = require('./select')
 
 // import gutil from 'gulp-util'
 // import merge from 'merge'
@@ -8,30 +8,35 @@ const select = require('./select')
 
 // const PluginError = gutil.PluginError
 
-module.exports = function (options) {
-  const possible = select([
-    'printWidth',
-    'tabWidth',
-    'useTabs',
-    'semi',
-    'singleQuote',
-    'trailingComma',
-    'bracketSpacing',
-    'jsxBracketSameLine',
-    'rangeStart',
-    'rangeEnd',
-    'parser',
-    'filepath'
-  ])
+module.exports = function (configuration) {
+  // const possible = select([
+  //   'printWidth',
+  //   'tabWidth',
+  //   'useTabs',
+  //   'semi',
+  //   'singleQuote',
+  //   'trailingComma',
+  //   'bracketSpacing',
+  //   'jsxBracketSameLine',
+  //   'rangeStart',
+  //   'rangeEnd',
+  //   'parser',
+  //   'filepath'
+  // ])
 
-  function transform (file, encoding, callback) {
-    let contents = file.contents
-    let result = prettier.format(contents, possible(options))
+  function transformFunction (chunk, encoding, callback) {
+    var contents
+    var results
+    // var options
 
-    file.contents = result
+    contents = chunk.contents
+    // options = possible(configuration)
+    results = prettier.format(contents)
 
-    callback(null, file)
+    chunk.contents = Buffer.from(results)
+
+    callback(null, chunk)
   }
 
-  return through.obj(transform)
+  return through.obj(transformFunction)
 }

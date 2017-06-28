@@ -21,10 +21,7 @@
   "author": "Bhargav R. Patel",
   "license": "MIT",
   "dependencies": {
-    "gulp-util": "^3.0.8",
-    "merge": "^1.2.0",
-    "prettier": "^1.4.4",
-    "through2": "^2.0.3",
-    "vinyl-sourcemaps-apply": "^0.2.1"
+    "prettier": "^1.5.2",
+    "through2": "^2.0.3"
   }
 }
