@@ -1,14 +1,8 @@
+import select from './select'
 import through from 'through2'
 import prettier from 'prettier'
-import select from './select'
 
-// import gutil from 'gulp-util'
-// import merge from 'merge'
-// import sourcemap from 'vinyl-sourcemaps-apply'
-
-// const PluginError = gutil.PluginError
-
-export default function (options) {
+export default function (configuration) {
   const possible = select([
     'printWidth',
     'tabWidth',
@@ -24,14 +18,19 @@ export default function (options) {
     'filepath'
   ])
 
-  function transform (file, encoding, callback) {
-    let contents = file.contents
-    let result = prettier.format(contents, possible(options))
+  function transformFunction (chunk, encoding, callback) {
+    var contents
+    var results
+    var options
 
-    file.contents = result
+    contents = chunk.contents.toString()
+    options = possible(configuration)
 
-    callback(null, file)
+    results = prettier.format(contents, options)
+    chunk.contents = Buffer.from(results)
+
+    callback(null, chunk)
   }
 
-  return through.obj(transform)
+  return through.obj(transformFunction)
 }

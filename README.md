@@ -65,6 +65,14 @@ In the above example, the `options` object would contain these arguments.
 }
 ~~~
 
+## Building
+
+``` bash
+rollup -c
+prettier --no-semi --write --single-quote index.js
+eslint --fix index.js
+~~~
+
 ## License
 
 [MIT License](https://raw.githubusercontent.com/bhargavrpatel/gulp-prettier/master/LICENSE)

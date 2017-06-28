@@ -10,7 +10,7 @@
  *
  * @returns {Function} A callback function for reducing objects to similar objects with only specified properties.
  */
-module.exports = function (parameters) {
+export default function (parameters) {
   return function (it) {
     var object
 
