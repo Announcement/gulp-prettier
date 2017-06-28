@@ -1,7 +1,7 @@
 {
   "name": "gulp-prettier",
   "description": "Create vinyl streams to pipe to prettier",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "index.js",
   "repository": {
     "type": "git",
