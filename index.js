@@ -25,6 +25,11 @@ module.exports = function (configuration) {
   //   'filepath'
   // ])
 
+  function message (exception) {
+    let fromException = () => exception.message || exception.name
+    return fromException.message || 'error formatting contents'
+  }
+
   function transformFunction (chunk, encoding, callback) {
     var contents
     var results
@@ -40,10 +45,12 @@ module.exports = function (configuration) {
     } catch (exception) {
       error = new PluginError({
         plugin: 'gulp-prettier',
-        message: exception.message
+        message: message(exception)
       })
       callback(error)
+
     }
+
   }
 
   return through.obj(transformFunction)
