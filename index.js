@@ -31,11 +31,13 @@ module.exports = function (configuration) {
 
     contents = chunk.contents
     // options = possible(configuration)
-    results = prettier.format(contents)
-
-    chunk.contents = Buffer.from(results)
-
-    callback(null, chunk)
+    try {
+      results = prettier.format(contents)
+      chunk.contents = Buffer.from(results)
+      callback(null, chunk)
+    } catch (exception) {
+      callback(exception)
+    }
   }
 
   return through.obj(transformFunction)
