@@ -1,5 +1,6 @@
 var through = require('through2')
 var prettier = require('prettier')
+var {PluginError} = require('gulp-util')
 // var select = require('./select')
 
 // import gutil from 'gulp-util'
@@ -27,6 +28,7 @@ module.exports = function (configuration) {
   function transformFunction (chunk, encoding, callback) {
     var contents
     var results
+    var error
     // var options
 
     contents = chunk.contents
@@ -36,7 +38,11 @@ module.exports = function (configuration) {
       chunk.contents = Buffer.from(results)
       callback(null, chunk)
     } catch (exception) {
-      callback(exception)
+      error = new PluginError({
+        plugin: 'gulp-prettier',
+        message: exception.message
+      })
+      callback(error)
     }
   }
 
